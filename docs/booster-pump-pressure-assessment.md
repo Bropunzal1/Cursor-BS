@@ -1,9 +1,10 @@
 # Engineering Evaluation: Feeder Discharge Pressure Impact on Booster Pump 196450
 
-**Status:** Complete (independent verification of supplied hydraulic inputs)  
-**Configuration:** Standalone series — feeder → booster suction (0 ft static suction head)  
+**Status:** Complete (OEM curves + P&ID layout confirmed)  
+**Configuration:** Parallel feeders → common WW header → **bypass Weak Wash Storage Tank 1563-00** → suction of booster 196450 (**0 ft static tank head** on booster)  
+**P&ID:** Longview Fibre, Recovery – Lime Burning No. 5 Kiln Installation, Sheet 1, Dwg **42303-C** (highlighted path in `docs/curves/pid-42303C-lime-burning-sheet1-highlighted.png`)  
 **Process fluid:** Weak lime wash slurry (assumed S.G. = 1.10)  
-**Speed:** All pumps at 1800 RPM (60 Hz, 4-pole)
+**Speed:** All pumps at 1800 RPM (60 Hz, 4-pole); OEM curves catalogued at 1750 RPM
 
 ## Verdict
 
@@ -28,7 +29,19 @@ OEM curve check (`docs/curve-verification.md`): **3CNG84 ≈ 110 ft and 4CNG84 �
 | 156502 | Feeder | Worthington 3CNG84 | 9.50" |
 | 156501 | Feeder | Worthington 3CNG84 | 9.50" |
 
-Piping layout: feeder discharge into a common header (or individual feed) directly into the booster suction flange. No static tank head.
+### P&ID layout (confirmed)
+
+Highlighted path on 42303-C shows multiple feeder discharges (clarifier / dregs washer / lime mud thickener areas) joining **common WW headers**, then routing **past** Existing Weak Wash Storage Tank **1563-00** (bypass — not tank static head), annotated in red toward **196450**.
+
+| P&ID observation | Engineering implication |
+|---|---|
+| Parallel feeders into shared WW header | Confirms mismatched-head dead-head risk if multiple feeders run together |
+| Check valves on feeder discharge legs | Required; must function — still does not replace interlocks for large head mismatch |
+| Bypass of tank 1563-00 | Booster suction pressure ≈ feeder discharge pressure − line losses (no tank SSH) |
+| Hand notes ~250 gpm / ~450 gpm | Normal duty is **not** shut-off; mechanical integrity still uses shut-off as worst case |
+| Red note “→ 196450” | Destination of common-header bypass is the booster suction path |
+
+Drawing tags are largely **1563-xx / 1564-xx / 1565-xx**; map to SW Eq# 156301 / 157292 / 156501 / 156502 / 196450 via Avantis / equipment list (SW continuous numbers are not all printed on this sheet).
 
 ## Hydraulic basis
 
@@ -101,4 +114,4 @@ Feeder shut-off heads differ substantially (**~110 ft vs ~102 ft vs ~75 ft** on 
 
 ## Conclusion
 
-In series service with 0 ft static suction head, maximum feeder discharge pressure of **~52.4 psig** is acceptable for the **6CNG104** booster from a casing and bearing standpoint. Proceed only with **elevated Plan 32 flush** and **controls that prevent mismatched feeders from dead-heading each other**.
+In series service with 0 ft static suction head, maximum feeder discharge pressure of **~52.4 psig** (3CNG84, curve-confirmed) is acceptable for the **6CNG104** booster from a casing and bearing standpoint. Use curve-corrected booster shut-off **~156 ft / 74.3 psig** in stacked-pressure checks. Proceed only with **elevated Plan 32 flush** and **controls that prevent mismatched feeders from dead-heading each other**.

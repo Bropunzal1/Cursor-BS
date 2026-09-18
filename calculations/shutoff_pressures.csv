@@ -1,0 +1,6 @@
+SW_Eq,Role,Model,Impeller_in,Stated_Head_ft,Curve_Head_ft_1750RPM,SG,Curve_Discharge_psig,Stated_vs_Curve
+196450,Booster,Worthington 6CNG104,11.875,136,156,1.10,74.29,UNDERSTATED
+156502,Feeder,Worthington 3CNG84,9.50,110,110,1.10,52.38,MATCH
+156501,Feeder,Worthington 3CNG84,9.50,110,110,1.10,52.38,MATCH
+156301,Feeder,Worthington 6CNG84,9.50,88,102,1.10,48.57,UNDERSTATED
+157292,Feeder,Worthington 4CNG84,8.00,75,75,1.10,35.71,MATCH

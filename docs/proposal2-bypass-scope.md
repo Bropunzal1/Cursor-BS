@@ -14,13 +14,13 @@ Plant P&ID context (upstream runs that formerly went toward the WW tank): `docs/
 | **From 2 Dregs** | **156502 or 156501** | Worthington **3CNG84** / 9.50" → **~110 ft** | **6"** (dregs leg) |
 | **From 10/11 MT** (mud tank) | **157292 or 156301** | **4CNG84** / 8.00" → **~75 ft**, *or* **6CNG84** / 9.50" → **~100–102 ft** | **8"** (mud-tank leg) |
 
-These two lines drop past the existing tank inlet valves and join a **common header sized 6" or 8"**, then a **6"** run into the **suction** of **196450**. Yellow path on Proposal 2 = tank bypass (not through the WW tank). Existing tank suction pumps to **14 RB** remain separate (not on the yellow path).
+These two lines join a **common header sized 6" or 8"**, then a **6"** run into the **suction** of **196450**. The WW tank is **abandoned** — not on the live path. Any former tank-bottom pumps to **14 RB** are out of scope for this duty.
 
 ## What the plant P&ID (42303-C) contributes
 
 The green-highlighted runs on Sheet 1 show the **upstream feeder network** that today delivers weak wash / mud-related flow **toward** the WW tank area. Proposal 2 is the local modification at the tank: **tie those arriving 6" (dregs) and 8" (10/11 MT) lines together and send them to 196450 instead of (or in addition to routing past) tank fill.**
 
-- Tank bypass ⇒ **0 ft static tank head** on 196450 suction.
+- Tank **abandoned** ⇒ **0 ft static tank head** on 196450 suction.
 - Common header ⇒ the two selected feeders can pressurize **each other** if run together.
 
 ## Hydraulic conflict (this specific pair)

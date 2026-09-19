@@ -71,4 +71,4 @@ Install a dedicated **min-flow bypass on each feeder** that can feed the common 
 
 ---
 
-**Bottom line:** Build the yellow-path bypass and common header as drawn; protect the feeders with **min-flow recycle upstream of each check valve** plus **simple header-pressure interlocks**. That makes the tank bypass viable without depending on operators to prevent dead-head. Treat VFDs as an upgrade only if dual-feed load sharing becomes a standing operating mode.
+**Bottom line:** With the WW tank **abandoned**, build the common header as drawn; protect the feeders with **min-flow recycle upstream of each check valve** plus **simple header-pressure interlocks**. Treat VFDs as an upgrade only if dual-feed load sharing becomes a standing operating mode.

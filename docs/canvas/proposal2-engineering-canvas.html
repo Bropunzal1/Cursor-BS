@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Proposal 2 — Weak Wash Bypass Engineering Canvas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1a1f1c;
+      --paper: #e8ebe4;
+      --panel: #f4f6f0;
+      --line: #2c3530;
+      --muted: #5c675f;
+      --wash: #c4a035;
+      --wash-soft: rgba(196, 160, 53, 0.18);
+      --pass: #2f6b4f;
+      --warn: #9a4e1a;
+      --fail: #8b2e2e;
+      --rule: rgba(26, 31, 28, 0.12);
+      --shadow: 0 18px 50px rgba(26, 31, 28, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(196, 160, 53, 0.12), transparent 55%),
+        linear-gradient(165deg, #dfe4db 0%, var(--paper) 40%, #d5dbd2 100%);
+      font-family: "DM Sans", system-ui, sans-serif;
+      line-height: 1.45;
+    }
+
+    .grain {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 0;
+    }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    /* Hero — one composition */
+    .hero {
+      display: grid;
+      gap: 1.25rem;
+      padding: 2.25rem 0 1.5rem;
+      animation: rise 0.8s ease both;
+    }
+    .kicker {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .brand {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: clamp(2.6rem, 6vw, 4.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin: 0.2rem 0 0.5rem;
+    }
+    .brand em {
+      font-style: italic;
+      color: #7a6220;
+    }
+    .lede {
+      max-width: 38rem;
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    nav.toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0 0.5rem;
+      animation: rise 0.9s 0.1s ease both;
+    }
+    nav.toc a {
+      text-decoration: none;
+      color: var(--ink);
+      border: 1px solid var(--rule);
+      background: rgba(244, 246, 240, 0.7);
+      backdrop-filter: blur(6px);
+      padding: 0.45rem 0.8rem;
+      font-size: 0.82rem;
+      font-family: "JetBrains Mono", monospace;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    nav.toc a:hover {
+      transform: translateY(-2px);
+      border-color: var(--wash);
+      background: var(--wash-soft);
+    }
+
+    section {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: var(--panel);
+      border: 1px solid var(--rule);
+      box-shadow: var(--shadow);
+      animation: rise 0.7s ease both;
+    }
+    section:nth-of-type(1) { animation-delay: 0.05s; }
+    section:nth-of-type(2) { animation-delay: 0.12s; }
+    section:nth-of-type(3) { animation-delay: 0.18s; }
+    section:nth-of-type(4) { animation-delay: 0.24s; }
+    section:nth-of-type(5) { animation-delay: 0.3s; }
+
+    h2 {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 1.85rem;
+      font-weight: 400;
+      margin: 0 0 0.85rem;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-size: 0.95rem;
+      margin: 1.25rem 0 0.5rem;
+      letter-spacing: 0.02em;
+    }
+    p { margin: 0.4rem 0 0.7rem; color: var(--ink); }
+    .muted { color: var(--muted); }
+
+    .grid-2 {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 860px) {
+      .grid-2 { grid-template-columns: 1.1fr 0.9fr; }
+      .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .grid-3 {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .stat {
+      padding: 0.9rem 1rem;
+      border-left: 3px solid var(--wash);
+      background: linear-gradient(90deg, var(--wash-soft), transparent 70%);
+    }
+    .stat .label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .stat .value {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 1.55rem;
+      margin-top: 0.15rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 0.75rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.55rem 0.45rem;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+    }
+    th {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .mono { font-family: "JetBrains Mono", monospace; font-size: 0.82rem; }
+
+    .badge {
+      display: inline-block;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      padding: 0.15rem 0.4rem;
+      border: 1px solid currentColor;
+    }
+    .badge.pass { color: var(--pass); }
+    .badge.warn { color: var(--warn); }
+    .badge.fail { color: var(--fail); }
+    .badge.match { color: var(--pass); }
+    .badge.miss { color: var(--fail); }
+
+    .drawing-wrap {
+      margin-top: 0.75rem;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(44,53,48,0.04) 24px),
+        repeating-linear-gradient(90deg, transparent, transparent 23px, rgba(44,53,48,0.04) 24px),
+        #f7f8f4;
+      border: 1px solid var(--rule);
+      padding: 0.75rem;
+      overflow: auto;
+    }
+    .drawing-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 520px;
+      object-fit: contain;
+    }
+    .drawing-wrap svg {
+      display: block;
+      width: 100%;
+      min-width: 720px;
+      height: auto;
+    }
+
+    .flow-path {
+      stroke: var(--wash);
+      stroke-width: 4;
+      fill: none;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+      stroke-dasharray: 320;
+      stroke-dashoffset: 320;
+      animation: draw 2.2s 0.4s ease forwards;
+    }
+    .tank-ghost { fill: #cfd5cb; stroke: #8a9389; stroke-width: 1.5; stroke-dasharray: 4 3; }
+    .pipe { stroke: var(--line); stroke-width: 2.5; fill: none; }
+    .label-svg {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      fill: var(--ink);
+    }
+    .label-svg.small { font-size: 9.5px; fill: var(--muted); }
+
+    .solution-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.5rem 0 0;
+    }
+    .solution-list li {
+      position: relative;
+      padding: 0.7rem 0 0.7rem 1.1rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .solution-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1rem;
+      width: 0.45rem;
+      height: 0.45rem;
+      background: var(--wash);
+    }
+    .solution-list strong { display: block; margin-bottom: 0.15rem; }
+
+    footer.note {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .flow-path { stroke-dasharray: none; stroke-dashoffset: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="shell">
+    <header class="hero">
+      <div class="kicker">Longview Fibre · Recovery / Lime Burning · Dwg 42303-C</div>
+      <h1 class="brand">Proposal 2<br /><em>Weak Wash Bypass</em></h1>
+      <p class="lede">
+        Engineering canvas: problem framing, OEM curve–checked hydraulics, P&amp;ID/proposal layout,
+        and the recommended capital solution for feeding booster <span class="mono">196450</span> without tank static head.
+      </p>
+    </header>
+
+    <nav class="toc" aria-label="Sections">
+      <a href="#problem">01 Problem</a>
+      <a href="#data">02 Data &amp; curves</a>
+      <a href="#drawing">03 Drawing</a>
+      <a href="#checks">04 Integrity checks</a>
+      <a href="#solution">05 Solution</a>
+    </nav>
+
+    <section id="problem">
+      <h2>01 · Problem</h2>
+      <div class="grid-2">
+        <div>
+          <p>
+            Create a <strong>bypass around Weak Wash Tank 1963-00 / 1563-00</strong> and combine two weak-wash
+            feeder discharges into a <strong>common header</strong> into the suction of booster
+            <strong>196450</strong> (Worthington 6CNG104), discharging to <strong>19 RB</strong>.
+          </p>
+          <p class="muted">
+            Bypassing the atmospheric tank removes the buffer between feeders. If mismatched pumps run
+            together into one solid header, the higher-head unit can dead-head the lower-head unit through its check valve.
+          </p>
+        </div>
+        <div class="grid-3" style="grid-template-columns: 1fr;">
+          <div class="stat">
+            <div class="label">Fluid</div>
+            <div class="value">Weak wash · S.G. 1.10</div>
+          </div>
+          <div class="stat">
+            <div class="label">Static head on booster</div>
+            <div class="value">0 ft tank SSH</div>
+          </div>
+          <div class="stat">
+            <div class="label">Speed basis</div>
+            <div class="value">1750 RPM curves</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Feed legs into the common header</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Pump (SW)</th>
+            <th>Model</th>
+            <th>Line</th>
+            <th>Shut-off (OEM)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>From 2 Dregs</td>
+            <td class="mono">156501 / 156502</td>
+            <td>3CNG84 · 9.50"</td>
+            <td class="mono">6"</td>
+            <td><strong>~110 ft</strong></td>
+          </tr>
+          <tr>
+            <td>From 10/11 MT</td>
+            <td class="mono">157292 or 156301</td>
+            <td>4CNG84 · 8.00" <em>or</em> 6CNG84 · 9.50"</td>
+            <td class="mono">8"</td>
+            <td><strong>~75 ft</strong> or <strong>~102 ft</strong></td>
+          </tr>
+          <tr>
+            <td>Booster → 19 RB</td>
+            <td class="mono">196450</td>
+            <td>6CNG104 · 11.875"</td>
+            <td class="mono">6" suction</td>
+            <td><strong>~156 ft</strong> (self)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="data">
+      <h2>02 · Data checked against OEM curves</h2>
+      <p class="muted">
+        Worthington <em>End Suction Centrifugal Pumps – Ratings</em> (catalog 1750 RPM). Stated heads from the
+        original write-up vs curve shut-off at Q = 0.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Pump</th>
+            <th>Stated</th>
+            <th>OEM curve</th>
+            <th>P @ S.G. 1.10</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>3CNG84 / 9.50"</td>
+            <td>~110 ft</td>
+            <td>~110 ft (A-1448)</td>
+            <td class="mono">52.4 psig</td>
+            <td><span class="badge match">MATCH</span></td>
+          </tr>
+          <tr>
+            <td>4CNG84 / 8.00"</td>
+            <td>~75 ft</td>
+            <td>~75 ft</td>
+            <td class="mono">35.7 psig</td>
+            <td><span class="badge match">MATCH</span></td>
+          </tr>
+          <tr>
+            <td>6CNG84 / 9.50"</td>
+            <td>~88 ft</td>
+            <td>~100–102 ft (A-1452)</td>
+            <td class="mono">~48.5 psig</td>
+            <td><span class="badge miss">UNDERSTATED</span></td>
+          </tr>
+          <tr>
+            <td>6CNG104 / 11.875"</td>
+            <td>~136 ft</td>
+            <td>~156 ft (A-1454)</td>
+            <td class="mono">74.3 psig</td>
+            <td><span class="badge miss">UNDERSTATED</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="muted" style="margin-top:0.85rem;">
+        Use <strong>A-1454</strong> for 196450 (eye 27 in²). Do not use large-eye A-1456 (~112 ft). 
+        Do not use <strong>60 ft</strong> for 157292 — OEM is ~75 ft.
+      </p>
+      <div class="grid-3" style="margin-top:1rem;">
+        <div class="stat">
+          <div class="label">Worst feeder suction</div>
+          <div class="value">52.4 psig</div>
+        </div>
+        <div class="stat">
+          <div class="label">Stacked casing (curve)</div>
+          <div class="value">~127 psig</div>
+        </div>
+        <div class="stat">
+          <div class="label">Class 150 typical</div>
+          <div class="value">175–275 psig</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="drawing">
+      <h2>03 · Drawing — Proposal 2 path</h2>
+      <p class="muted">
+        Yellow path = new bypass / common header (all weak wash). Gray tank path remains available for 14 RB.
+        Plant P&amp;ID 42303-C green highlights show upstream runs toward the WW tank.
+      </p>
+
+      <div class="drawing-wrap" aria-label="Proposal 2 schematic drawing">
+        <img src="proposal2-bypass-schematic.png" alt="Proposal 2 weak wash tank bypass schematic: 6 inch dregs and 8 inch mud tank lines to common header into booster 196450" />
+      </div>
+
+      <h3>Interactive line diagram</h3>
+      <div class="drawing-wrap">
+        <svg viewBox="0 0 960 420" role="img" aria-label="SVG schematic of Proposal 2 bypass">
+          <text class="label-svg" x="24" y="28">PROPOSAL 2 — COMMON HEADER BYPASS</text>
+          <text class="label-svg small" x="24" y="46">All lines = weak wash</text>
+
+          <!-- Sources -->
+          <text class="label-svg" x="40" y="88">FROM 2 DREGS</text>
+          <text class="label-svg small" x="40" y="104">156501/156502 · 3CNG84 · ~110 ft · 6"</text>
+          <path class="pipe" d="M60 120 V250" />
+          <circle cx="60" cy="150" r="14" fill="#f4f6f0" stroke="#1a1f1c" stroke-width="2"/>
+          <polygon points="60,140 68,158 52,158" fill="#1a1f1c"/>
+          <text class="label-svg small" x="78" y="154">CK</text>
+          <!-- min-flow dregs -->
+          <path d="M60 170 C20 170, 20 210, 60 210" fill="none" stroke="#9a4e1a" stroke-width="1.5" stroke-dasharray="3 2"/>
+          <text class="label-svg small" x="8" y="192" fill="#9a4e1a">MIN-FLOW</text>
+
+          <text class="label-svg" x="200" y="88">FROM 10/11 MT</text>
+          <text class="label-svg small" x="200" y="104">157292 (~75 ft) or 156301 (~102 ft) · 8"</text>
+          <path class="pipe" d="M220 120 V250" />
+          <circle cx="220" cy="150" r="14" fill="#f4f6f0" stroke="#1a1f1c" stroke-width="2"/>
+          <polygon points="220,140 228,158 212,158" fill="#1a1f1c"/>
+          <text class="label-svg small" x="238" y="154">CK</text>
+          <path d="M220 170 C180 170, 180 210, 220 210" fill="none" stroke="#9a4e1a" stroke-width="1.5" stroke-dasharray="3 2"/>
+          <text class="label-svg small" x="148" y="192" fill="#9a4e1a">MIN-FLOW</text>
+
+          <!-- Tank ghost -->
+          <rect class="tank-ghost" x="360" y="70" width="280" height="150" />
+          <text class="label-svg small" x="420" y="145">WW TANK 1963-00 / 1563-00</text>
+          <text class="label-svg small" x="445" y="162">(bypassed — not on yellow path)</text>
+          <path class="pipe" d="M500 220 V280" stroke="#8a9389" />
+          <circle cx="500" cy="300" r="12" fill="#f4f6f0" stroke="#8a9389" stroke-width="2"/>
+          <text class="label-svg small" x="520" y="304">To 14 RB</text>
+
+          <!-- Yellow common header path -->
+          <path class="flow-path" d="M60 250 H220 H320 H700 V300" />
+          <text class="label-svg" x="360" y="242" fill="#7a6220">COMMON HEADER · prefer 8"</text>
+          <text class="label-svg small" x="360" y="268" fill="#7a6220">PT / PI on header · reduce to 6" at suction if needed</text>
+
+          <!-- Booster -->
+          <circle cx="700" cy="320" r="28" fill="#f4f6f0" stroke="#1a1f1c" stroke-width="2.5"/>
+          <polygon points="700,300 718,336 682,336" fill="#1a1f1c"/>
+          <text class="label-svg" x="740" y="316">196450</text>
+          <text class="label-svg small" x="740" y="332">6CNG104 · Plan 32 ≥70–75 psig</text>
+          <path class="pipe" d="M728 320 H900" stroke-width="3"/>
+          <polygon points="900,320 888,314 888,326" fill="#1a1f1c"/>
+          <text class="label-svg" x="820" y="308">TO 19 RB</text>
+
+          <text class="label-svg small" x="24" y="390">Amber = Proposal 2 weak-wash bypass · Dashed = min-flow recycle upstream of check valves</text>
+        </svg>
+      </div>
+    </section>
+
+    <section id="checks">
+      <h2>04 · Integrity checks</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Check</th>
+            <th>Finding</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Casing (52.4 + 74.3 ≈ 127 psig)</td>
+            <td>Below Class 150 typical 175–275 psig</td>
+            <td><span class="badge pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>Axial thrust @ elevated suction</td>
+            <td>Standard CNG frame expected adequate</td>
+            <td><span class="badge pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>Mechanical seal (abrasive WW)</td>
+            <td>Needs API Plan 32 flush ≥15–20 psi above suction</td>
+            <td><span class="badge warn">CONDITIONAL</span></td>
+          </tr>
+          <tr>
+            <td>Parallel 3CNG84 + 4CNG84 on one header</td>
+            <td>110 vs 75 ft → weaker check closes → dead-head</td>
+            <td><span class="badge fail">FAIL w/o protection</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="solution">
+      <h2>05 · Recommended solution</h2>
+      <p>
+        <strong>Build the yellow bypass as drawn.</strong> Protect feeders with min-flow + interlocks.
+        Same fluid on all legs — no contamination issue at the tee.
+      </p>
+      <ul class="solution-list">
+        <li>
+          <strong>1 · Min-flow recycle on each feeder</strong>
+          Takeoff <em>upstream of the discharge check valve</em>; return to that pump’s own suction source.
+          Priority: mud-tank leg (especially 157292).
+        </li>
+        <li>
+          <strong>2 · Header pressure PT + start permissives</strong>
+          Default single-source mode; dual-feed only when min-flow is proven healthy.
+        </li>
+        <li>
+          <strong>3 · Prefer 8" common header</strong>
+          Reduce to 6" only if required at the 196450 suction flange. Keep tank inlet valves operable.
+        </li>
+        <li>
+          <strong>4 · Booster 196450 Plan 32</strong>
+          Clean-water flush header at <strong>70–75 psig</strong>. No casing upgrade required.
+        </li>
+        <li>
+          <strong>5 · VFDs = optional Phase 2</strong>
+          Only if dual-feed load sharing becomes a standing operating mode — keep min-flow as backup.
+        </li>
+      </ul>
+
+      <h3>Before IFC</h3>
+      <ol class="muted">
+        <li>Confirm normal 10/11 MT pump: <span class="mono">157292</span> vs <span class="mono">156301</span></li>
+        <li>Confirm whether dregs + MT must run simultaneously into 196450</li>
+        <li>Confirm 196450 suction flange size</li>
+      </ol>
+    </section>
+
+    <footer class="note">
+      Sources: OEM Worthington curves (docs/curves/) · P&amp;ID 42303-C · Proposal 2 sketch ·
+      docs/proposal2-recommended-solution.md · docs/curve-verification.md
+    </footer>
+  </div>
+</body>
+</html>

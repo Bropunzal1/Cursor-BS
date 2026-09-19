@@ -4,6 +4,8 @@ Engineering evaluation workspace.
 
 ## Deliverables
 
+- [**Engineering canvas (open in browser)**](docs/canvas/proposal2-engineering-canvas.html) — problem, OEM-checked data, drawing, solution
+- [Proposal 2 schematic drawing](docs/canvas/proposal2-bypass-schematic.png)
 - [**Recommended solution — Proposal 2**](docs/proposal2-recommended-solution.md)
 - [Proposal 2 — WW tank bypass / common header scope](docs/proposal2-bypass-scope.md)
 - [Booster pump feeder-pressure assessment (SW Eq# 196450)](docs/booster-pump-pressure-assessment.md)

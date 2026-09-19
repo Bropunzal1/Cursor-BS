@@ -38,8 +38,8 @@ Install a dedicated **min-flow bypass on each feeder** that can feed the common 
 | Common header size | Prefer **8"** for the combined run (matches larger MT leg; lower velocity/friction), reducer to **6"** only if required at the 196450 suction flange |
 | Isolation | Block valves on each leg **before** the tee so either source or the tank inlet path can be isolated |
 | Check valves | Keep / verify a check on **each** feeder discharge (already typical on 42303-C legs) |
-| Tank inlets | Leave existing valves to **1963-00** operable so tank fill remains available when bypass is not used |
-| Slope / drains / flush | Weak wash slurry — design for drain/flush points on the new bypass dead-legs |
+| Tank inlets | Isolate / blank as required for abandoned tank — do not rely on tank fill for this duty |
+| Slope / drains / flush | Weak wash slurry — design for drain/flush points on the new header dead-legs |
 
 ### 4. Booster 196450 (keep from hydraulic assessment)
 

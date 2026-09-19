@@ -4,7 +4,8 @@ Engineering evaluation workspace.
 
 ## Deliverables
 
-- [**Engineering canvas (open in browser)**](docs/canvas/proposal2-engineering-canvas.html) — problem, OEM-checked data, drawing, solution
+- **Cursor canvas:** [Proposal 2 — Weak Wash Tank Abandoned](/cursor/stores/user/canvases/a6a48c22-7243-4ccf-adea-0a5974e78763/source.canvas.tsx)
+- [**Engineering canvas HTML (archive)**](docs/canvas/proposal2-engineering-canvas.html)
 - [Proposal 2 schematic drawing](docs/canvas/proposal2-bypass-schematic.png)
 - [**Recommended solution — Proposal 2**](docs/proposal2-recommended-solution.md)
 - [Proposal 2 — WW tank bypass / common header scope](docs/proposal2-bypass-scope.md)

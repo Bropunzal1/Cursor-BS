@@ -2,10 +2,10 @@
 
 ## Project intent
 
-Create a **bypass around Weak Wash Tank 1963-00 / 1563-00** (shown on P&ID 42303-C) by combining **two existing feeder discharge lines** into a **common header** that feeds the **suction of booster 196450**, which then goes **To 19 RB**.
+Create a **common header** from two existing weak-wash feeder discharges into the suction of booster **196450** (To 19 RB), with Weak Wash Tank **1963-00 / 1563-00 abandoned** (out of service — no tank SSH / atmospheric buffer).
 
 Sketch: `docs/curves/proposal2-ww-tank-bypass-sketch.png`  
-Plant P&ID context (existing highlighted runs toward WW tank): `docs/curves/pid-42303C-lime-burning-sheet1-highlighted.png`
+Plant P&ID context (upstream runs that formerly went toward the WW tank): `docs/curves/pid-42303C-lime-burning-sheet1-highlighted.png`
 
 ## Two feed legs (as designed)
 

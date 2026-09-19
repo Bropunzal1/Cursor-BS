@@ -1,7 +1,8 @@
 # Recommended Solution — Proposal 2 (WW Tank Bypass / Common Header)
 
 **Fluid:** All legs carry **weak wash** (same fluid) — no cross-contamination concern at the tie-in.  
-**Layout:** 6" From 2 Dregs (**156501 or 156502**, 3CNG84 ~110 ft) + 8" From 10/11 MT (**157292** 4CNG84 ~75 ft *or* **156301** 6CNG84 ~102 ft) → common header → 6" suction **196450** → 19 RB. Tank **1963-00 / 1563-00** bypassed.
+**Tank:** Weak Wash Tank **1963-00 / 1563-00 is abandoned** — not in service; no tank SSH / atmospheric buffer.  
+**Layout:** 6" From 2 Dregs (**156501 or 156502**, 3CNG84 ~110 ft) + 8" From 10/11 MT (**157292** 4CNG84 ~75 ft *or* **156301** 6CNG84 ~102 ft) → common header → 6" suction **196450** → 19 RB.
 
 ## Recommendation (what to build)
 

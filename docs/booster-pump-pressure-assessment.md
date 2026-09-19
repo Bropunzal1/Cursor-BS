@@ -1,7 +1,7 @@
 # Engineering Evaluation: Feeder Discharge Pressure Impact on Booster Pump 196450
 
 **Status:** Complete (OEM curves + P&ID + Proposal 2 sketch)  
-**Project (Proposal 2):** Bypass WW Tank **1963-00 / 1563-00**; tie **6" From 2 Dregs** (pump **156502 or 156501**, 3CNG84) and **8" From 10/11 MT** (pump **157292 or 156301**) into a **common header (6" or 8")** → **6" into suction of 196450** → **To 19 RB**  
+**Project (Proposal 2):** **Abandon** WW Tank **1963-00 / 1563-00**; tie **6" From 2 Dregs** (pump **156502 or 156501**, 3CNG84) and **8" From 10/11 MT** (pump **157292 or 156301**) into a **common header (6" or 8")** → **6" into suction of 196450** → **To 19 RB** (0 ft tank SSH)  
 **References:** Proposal sketch `docs/curves/proposal2-ww-tank-bypass-sketch.png`; plant P&ID 42303-C highlighted upstream runs `docs/curves/pid-42303C-lime-burning-sheet1-highlighted.png`; scope `docs/proposal2-bypass-scope.md`  
 **Process fluid:** Weak lime wash slurry (assumed S.G. = 1.10)  
 **Speed:** All pumps at 1800 RPM (60 Hz, 4-pole); OEM curves catalogued at 1750 RPM

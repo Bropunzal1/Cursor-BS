@@ -1,8 +1,8 @@
 # Engineering Evaluation: Feeder Discharge Pressure Impact on Booster Pump 196450
 
-**Status:** Complete (OEM curves + P&ID layout confirmed)  
-**Configuration:** Parallel feeders → common WW header → **bypass Weak Wash Storage Tank 1563-00** → suction of booster 196450 (**0 ft static tank head** on booster)  
-**P&ID:** Longview Fibre, Recovery – Lime Burning No. 5 Kiln Installation, Sheet 1, Dwg **42303-C** (highlighted path in `docs/curves/pid-42303C-lime-burning-sheet1-highlighted.png`)  
+**Status:** Complete (OEM curves + P&ID + Proposal 2 sketch)  
+**Project (Proposal 2):** Bypass WW Tank **1963-00 / 1563-00**; tie **6" From 2 Dregs** (pump **156502 or 156501**, 3CNG84) and **8" From 10/11 MT** (pump **157292 or 156301**) into a **common header (6" or 8")** → **6" into suction of 196450** → **To 19 RB**  
+**References:** Proposal sketch `docs/curves/proposal2-ww-tank-bypass-sketch.png`; plant P&ID 42303-C highlighted upstream runs `docs/curves/pid-42303C-lime-burning-sheet1-highlighted.png`; scope `docs/proposal2-bypass-scope.md`  
 **Process fluid:** Weak lime wash slurry (assumed S.G. = 1.10)  
 **Speed:** All pumps at 1800 RPM (60 Hz, 4-pole); OEM curves catalogued at 1750 RPM
 
@@ -29,19 +29,18 @@ OEM curve check (`docs/curve-verification.md`): **3CNG84 ≈ 110 ft and 4CNG84 �
 | 156502 | Feeder | Worthington 3CNG84 | 9.50" |
 | 156501 | Feeder | Worthington 3CNG84 | 9.50" |
 
-### P&ID layout (confirmed)
+### P&ID + Proposal 2 layout (confirmed)
 
-Highlighted path on 42303-C shows multiple feeder discharges (clarifier / dregs washer / lime mud thickener areas) joining **common WW headers**, then routing **past** Existing Weak Wash Storage Tank **1563-00** (bypass — not tank static head), annotated in red toward **196450**.
+**Plant P&ID 42303-C** (green highlight): upstream feeder network delivering weak wash / mud-related flow **toward** the WW tank area.  
+**Proposal 2 sketch** (yellow highlight): at the tank, the **6" dregs** and **8" 10/11 MT** lines are tied into a **common header** that **bypasses** tank **1963-00 / 1563-00** and enters **196450** suction (existing tank pumps to 14 RB stay off that path).
 
-| P&ID observation | Engineering implication |
+| Observation | Engineering implication |
 |---|---|
-| Parallel feeders into shared WW header | Confirms mismatched-head dead-head risk if multiple feeders run together |
-| Check valves on feeder discharge legs | Required; must function — still does not replace interlocks for large head mismatch |
-| Bypass of tank 1563-00 | Booster suction pressure ≈ feeder discharge pressure − line losses (no tank SSH) |
-| Hand notes ~250 gpm / ~450 gpm | Normal duty is **not** shut-off; mechanical integrity still uses shut-off as worst case |
-| Red note “→ 196450” | Destination of common-header bypass is the booster suction path |
-
-Drawing tags are largely **1563-xx / 1564-xx / 1565-xx**; map to SW Eq# 156301 / 157292 / 156501 / 156502 / 196450 via Avantis / equipment list (SW continuous numbers are not all printed on this sheet).
+| Two feeder sources on one solid header | Dead-head hierarchy if both run — worst if dregs **3CNG84 (~110 ft)** + mud **4CNG84 (~75 ft)** |
+| Bypass of WW tank | Booster suction ≈ feeder discharge − losses (**0 ft tank SSH**) |
+| Check valves on feeder legs (P&ID) | Necessary; do not replace min-flow / VFD / segregation |
+| Common header 6" or 8"; suction into 196450 shown 6" | Size for combined duty; confirm at IFC |
+| Hand notes ~250 / ~450 gpm on P&ID | Duty context; integrity still uses shut-off worst case |
 
 ## Hydraulic basis
 

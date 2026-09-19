@@ -24,7 +24,7 @@ Because dual-feed is prohibited:
 | Interlocks | Dregs XOR MT into header (motor + valve permissives) |
 | Header PT | Monitoring / alarm |
 | Abandoned tank | Isolate / blank per plant practice |
-| 196450 | Plan 32 flush **≥ 70–75 psig**; casing OK (~127 psig stacked worst case) |
+| 196450 | Plan 32 flush **≥ 70–75 psig**; casing OK (~129.5 psig stacked worst case) |
 
 ## Operating modes
 

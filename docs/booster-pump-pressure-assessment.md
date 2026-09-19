@@ -10,11 +10,11 @@
 
 Feeder shut-off discharge into the suction of booster **SW Eq# 196450 (Worthington 6CNG104)** does **not** create a casing over-pressure or expected thrust-bearing failure risk. The controlling risk is **mechanical seal flush pressure** for abrasive slurry service, plus **parallel operation of mismatched feeders**.
 
-OEM curve check (`docs/curve-verification.md`): **3CNG84 ≈ 110 ft and 4CNG84 ≈ 75 ft are correct; 6CNG84 is ~100–102 ft (not 88); 6CNG104 is ~156 ft (not 136).** Worst-case stacked casing pressure rises to **~127 psig** (still PASS vs Class 150).
+OEM curve check (`docs/curve-verification.md`): closer reads — **3CNG84 = 110 ft**, **4CNG84 = 70 ft**, **6CNG84 = 102 ft**, **6CNG104 = 162 ft**. Stacked casing ≈ **129.5 psig** (PASS vs Class 150).
 
 | Check | Result |
 |---|---|
-| Casing integrity (worst-case dead-head stack) | **PASS** (~127 psig curve-basis; ~134 psig @1800 affinity) |
+| Casing integrity (worst-case dead-head stack) | **PASS** (~129.5 psig) |
 | Axial thrust from elevated suction pressure | **PASS** (standard CNG frame expected adequate) |
 | Mechanical seal pressure rating | **CONDITIONAL PASS** — Plan 32 flush must track max suction |
 | Parallel feeder operation into common header | **FAIL without interlocks / protection** |
@@ -36,7 +36,7 @@ OEM curve check (`docs/curve-verification.md`): **3CNG84 ≈ 110 ft and 4CNG84 �
 
 | Observation | Engineering implication |
 |---|---|
-| Two feeder sources on one solid header | Dead-head hierarchy if both run — worst if dregs **3CNG84 (~110 ft)** + mud **4CNG84 (~75 ft)** |
+| Two feeder sources on one solid header | Dead-head hierarchy if both run — worst if dregs **3CNG84 (110 ft)** + mud **4CNG84 (70 ft)**; IFC prohibits dual-feed |
 | Bypass of WW tank | Booster suction ≈ feeder discharge − losses (**0 ft tank SSH**) |
 | Check valves on feeder legs (P&ID) | Necessary; do not replace min-flow / VFD / segregation |
 | Common header 6" or 8"; suction into 196450 shown 6" | Size for combined duty; confirm at IFC |
@@ -52,17 +52,17 @@ P_{\mathrm{psig}} = \frac{H_{\mathrm{ft}} \times \mathrm{S.G.}}{2.31}
 
 Shut-off heads from Worthington rating curves at **1750 RPM** (catalog), S.G. = 1.10. See `docs/curve-verification.md` and `docs/curves/`.
 
-| SW Eq # | Role | Stated head | **Curve head @1750** | Curve discharge pressure |
-|---|---|---:|---:|---:|
-| 196450 | Booster | ~136 ft | **~156 ft** (A-1454) | **74.3 psig** |
-| 156502 | Feeder | ~110 ft | **~110 ft** (A-1448) | **52.4 psig** (worst-case feed) |
-| 156501 | Feeder | ~110 ft | **~110 ft** (A-1448) | **52.4 psig** (worst-case feed) |
-| 156301 | Feeder | ~88 ft | **~100–102 ft** (A-1452) | **~48.5 psig** |
-| 157292 | Feeder | ~75 ft | **~75 ft** | **35.7 psig** |
+| SW Eq # | Role | Closer shut-off @1750 | Discharge P (S.G. 1.10) |
+|---|---|---:|---:|
+| 196450 | Booster | **162 ft** | **77.14 psig** |
+| 156502 | Feeder | **110 ft** | **52.38 psig** (worst-case feed) |
+| 156501 | Feeder | **110 ft** | **52.38 psig** (worst-case feed) |
+| 156301 | Feeder | **102 ft** | **48.57 psig** |
+| 157292 | Feeder | **70 ft** | **33.33 psig** |
 
-**Governing suction pressure at the booster:** still **52.4 psig** from either 3CNG84 feeder at shut-off (curve-confirmed).
+**Governing suction pressure at the booster:** **52.38 psig** from either 3CNG84 feeder at shut-off.
 
-> Use standard 6CNG104 chart A-1454 (eye 27 in²). Do not use large-eye A-1456 (~112 ft shut-off) for Eq# 196450.
+> Pressures are \(H \times 1.10 / 2.31\). Do not pair 162 ft with 74.29 psig or 70 ft with 35.71 psig — those were from older heads.
 
 ## Assessments
 
@@ -71,10 +71,10 @@ Shut-off heads from Worthington rating curves at **1750 RPM** (catalog), S.G. = 
 Worst-case total internal casing pressure with the booster also dead-headed (curve-corrected booster head):
 
 \[
-52.4\ \mathrm{psig\ (suction)} + 74.3\ \mathrm{psig\ (booster\ shut\text{-}off\ @\ 156\ ft)} = 126.7\ \mathrm{psig}
+52.38\ \mathrm{psig\ (suction)} + 77.14\ \mathrm{psig\ (booster\ shut\text{-}off\ @\ 162\ ft)} = 129.5\ \mathrm{psig}
 \]
 
-Class 150 ANSI cast/ductile iron pump casings are typically rated **175–275 psig**. Margin to the lower bound is approximately **48 psig** (~28%). Casing over-pressurization is not a concern under the stated assumptions.
+Class 150 ANSI cast/ductile iron pump casings are typically rated **175–275 psig**. Margin to the lower bound is approximately **45 psig**. Casing over-pressurization is not a concern under the stated assumptions.
 
 ### 2. Axial thrust bearing loads — PASS
 
@@ -88,29 +88,25 @@ Suction pressure in the 30–52 psig band applies moderate axial load toward the
 
 | Basis | Value |
 |---|---|
-| Max feeder suction pressure | 52.4 psig |
-| Minimum flush (52.4 + 15) | **67.4 psig** |
-| Preferred flush (52.4 + 20) | **72.4 psig** |
+| Max feeder suction pressure | 52.38 psig |
+| Minimum flush (52.38 + 15) | **67.4 psig** |
+| Preferred flush (52.38 + 20) | **72.4 psig** |
 | Recommended header setpoint (rounded with margin) | **70–75 psig** |
 
 ### 4. System layout — mismatched parallel feeders — WARNING
 
-Feeder shut-off heads differ substantially (**~110 ft vs ~102 ft vs ~75 ft** on OEM curves). Parallel operation into a common discharge header without protection is hazardous:
+Feeder shut-off heads differ (**110 / 102 / 70 ft**). IFC **prohibits** parallel feed into the common header (Dregs XOR MT); no recirculation required under that rule.
 
-- A higher-head feeder (e.g. 3CNG84 @ ~110 ft) can hold header pressure above a lower-head feeder’s shut-off (e.g. 4CNG84 @ ~75 ft).
-- That forces the lower-head pump’s check valve closed → **dead-head / zero flow**.
-- Result: rapid fluid heating, seal and bearing damage.
-
-**Controls / operations requirement:** Do not allow unrestricted parallel feeder operation. Use start/stop interlocks, verified check valves, and preferably minimum-flow or dead-head protection on each feeder.
+If dual-feed were ever allowed without protection: a higher-head feeder (3CNG84 @ 110 ft) could hold header pressure above a lower-head feeder’s shut-off (4CNG84 @ 70 ft), closing its check valve and dead-heading it.
 
 ## Required actions
 
 1. Set / verify Plan 32 flush header for **196450** at **≥ 70–75 psig** (maintain ≥15–20 psi above actual operating suction).
 2. Confirm flush water quality (clean, filtered) suitable for seal faces in lime-wash service.
 3. Prohibit uncontrolled parallel feeder operation into the common header; implement interlocks or documented single-feeder operating rules.
-4. Attach OEM shut-off / H-Q curves for each installed impeller (copies filed under `docs/curves/`). Use **156 ft** for 6CNG104 and **~102 ft** for 6CNG84 / 9.50"; do not retain the stated 136 / 88 ft values.
-5. Confirm casing MAWP / hydrotest rating on the nameplate or manufacturer data sheet for 196450 (document vs. **~127 psig** stacked case).
+4. Attach OEM curves; use closer reads **162 / 110 / 102 / 70 ft**.
+5. Confirm casing MAWP for 196450 vs **~129.5 psig** stacked case.
 
 ## Conclusion
 
-In series service with 0 ft static suction head, maximum feeder discharge pressure of **~52.4 psig** (3CNG84, curve-confirmed) is acceptable for the **6CNG104** booster from a casing and bearing standpoint. Use curve-corrected booster shut-off **~156 ft / 74.3 psig** in stacked-pressure checks. Proceed only with **elevated Plan 32 flush** and **controls that prevent mismatched feeders from dead-heading each other**.
+In series service with 0 ft static suction head (tank abandoned), maximum feeder discharge **52.38 psig** (3CNG84) is acceptable for **6CNG104**. Use booster shut-off **162 ft / 77.14 psig** in stacked checks (~129.5 psig). IFC: exclusive feed + Plan 32 ≥70–75 psig; no feeder recirculation.

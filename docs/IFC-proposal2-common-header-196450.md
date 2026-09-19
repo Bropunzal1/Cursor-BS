@@ -60,17 +60,19 @@ Document final valve tags, motor tags, and cause-and-effect on the IFC controls 
 ## 4. Hydraulic basis (design data)
 
 **Fluid:** Weak wash on all lines · **S.G. = 1.10** · **P (psig) = H (ft) × S.G. / 2.31**  
-**Curves:** Worthington catalog @ **1750 RPM**
+**Curves:** Worthington catalog @ **1750 RPM** (closer shut-off reads)
 
 | Eq | Role | Model | OEM shut-off | Discharge P |
 |---|---|---|---:|---:|
-| 156501 / 156502 | Dregs feeder | 3CNG84 / 9.50" | ~110 ft | 52.4 psig |
-| 157292 | MT feeder (alt) | 4CNG84 / 8.00" | ~75 ft | 35.7 psig |
-| 156301 | MT feeder (alt) | 6CNG84 / 9.50" | ~100–102 ft | ~48.5 psig |
-| 196450 | Booster | 6CNG104 / 11.875" (A-1454) | ~156 ft | 74.3 psig |
+| 156501 / 156502 | Dregs feeder | 3CNG84 / 9.50" | **110 ft** | **52.38 psig** |
+| 157292 | MT feeder (alt) | 4CNG84 / 8.00" | **70 ft** | **33.33 psig** |
+| 156301 | MT feeder (alt) | 6CNG84 / 9.50" | **102 ft** | **48.57 psig** |
+| 196450 | Booster | 6CNG104 / 11.875" | **162 ft** | **77.14 psig** |
 
-**Worst-case stacked casing (feeder shut-off + booster shut-off):** ~52.4 + 74.3 ≈ **127 psig** → **PASS** vs Class 150 typical 175–275 psig.  
+**Worst-case stacked casing (feeder shut-off + booster shut-off):** 52.38 + 77.14 ≈ **129.5 psig** → **PASS** vs Class 150 typical 175–275 psig.  
 **Booster seal:** Plan 32 flush **≥ 70–75 psig**.
+
+**Exclusive feed still mandatory:** 110 ft (dregs) vs 70 ft (4CNG84) or 102 ft (6CNG84) — never parallel.
 
 ---
 

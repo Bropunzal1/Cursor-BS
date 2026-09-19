@@ -38,9 +38,10 @@ Stacked worst case with governing feeder (3CNG84 @ 110 ft / 52.4 psig) + booster
 
 ## Design actions for Proposal 2 viability
 
-1. **If both legs may run together:** min-flow recycle upstream of each feeder check valve, **or** VFDs on the higher-head unit(s) tied to header pressure, **or** automated block valves so only one feeder source feeds the common header at a time.
-2. Finalize common-header size (**6" vs 8"**) for velocity / friction at expected combined gpm (P&ID hand notes ~250 / ~450 gpm as duty context).
-3. Keep existing WW tank inlet valves operable so tank fill can be restored / isolated as ops require.
-4. Map sketch sources to live SW tags (156501/156502 on dregs; 157292 vs 156301 on 10/11 MT) before IFC.
+**Adopted recommendation:** see `docs/proposal2-recommended-solution.md` — **min-flow recycle upstream of each feeder check valve + header-pressure interlocks**; VFDs optional if dual-feed load sharing is routine.
 
-See also: `docs/booster-pump-pressure-assessment.md`, `docs/curve-verification.md`.
+1. Install min-flow on each feeder that can feed the common header (mud-tank leg first if using 4CNG84).
+2. Prefer **8"** combined header, reduce to **6"** at 196450 only if the suction flange requires it.
+3. Keep existing WW tank inlet valves operable.
+4. Set 196450 Plan 32 flush **≥70–75 psig**.
+5. Confirm which MT pump (157292 vs 156301) and whether dual-feed is required before IFC.

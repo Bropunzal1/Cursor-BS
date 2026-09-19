@@ -1,4 +1,5 @@
 // cursor-canvas-title: Proposal 2 — Weak Wash Tank Abandoned
+// Re-saved so the Open card appears in chat (cloud agent markdown links do not open canvases).
 import {
   Callout,
   Card,

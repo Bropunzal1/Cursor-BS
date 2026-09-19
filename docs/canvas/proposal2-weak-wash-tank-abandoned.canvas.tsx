@@ -144,25 +144,24 @@ export default function Proposal2Canvas() {
         <Table
           headers={["Source", "Pump", "Line", "OEM shut-off"]}
           rows={[
-            ["From 2 Dregs", "156501 / 156502 · 3CNG84", "6\"", "~110 ft"],
-            ["From 10/11 MT", "157292 or 156301", "8\"", "~75 or ~102 ft"],
-            ["Booster → 19 RB", "196450 · 6CNG104", "6\" suction", "~156 ft (self)"],
+            ["From 2 Dregs", "156501 / 156502 · 3CNG84", "6\"", "110 ft"],
+            ["From 10/11 MT", "157292 or 156301", "8\"", "70 or 102 ft"],
+            ["Booster → 19 RB", "196450 · 6CNG104", "6\" suction", "162 ft (self)"],
           ]}
           striped
         />
       </Stack>
 
       <Stack gap={10}>
-        <H2>02 · OEM curve check</H2>
+        <H2>02 · OEM curve check (closer reads)</H2>
         <Table
-          headers={["Pump", "Stated", "OEM", "Result"]}
+          headers={["Eq", "Head (ft)", "P (psig)", "Note"]}
           rows={[
-            ["3CNG84 / 9.50\"", "~110 ft", "~110 ft", <Pill tone="success" key="a">MATCH</Pill>],
-            ["4CNG84 / 8.00\"", "~75 ft", "~75 ft", <Pill tone="success" key="b">MATCH</Pill>],
-            ["6CNG84 / 9.50\"", "~88 ft", "~100–102 ft", <Pill tone="deleted" key="c">UNDERSTATED</Pill>],
-            ["6CNG104 / 11.875\"", "~136 ft", "~156 ft (A-1454)", <Pill tone="deleted" key="d">UNDERSTATED</Pill>],
+            ["196450", "162", "77.14", "Closer read"],
+            ["156502 / 156501", "110", "52.38", "Match"],
+            ["156301", "102", "48.57", "Closer read"],
+            ["157292", "70", "33.33", "Closer read (was ~75)"],
           ]}
-          rowTone={["success", "success", "danger", "danger"]}
           striped
         />
       </Stack>
@@ -184,7 +183,7 @@ export default function Proposal2Canvas() {
         <Table
           headers={["Check", "Status"]}
           rows={[
-            ["Casing ~127 psig vs Class 150", <Pill tone="success" key="p1">PASS</Pill>],
+            ["Casing ~129.5 psig vs Class 150", <Pill tone="success" key="p1">PASS</Pill>],
             ["Plan 32 flush ≥70–75 psig", <Pill tone="warning" key="p2">REQUIRED</Pill>],
             ["Dual-feed dregs + MT", <Pill tone="deleted" key="p3">PROHIBITED</Pill>],
             ["Feeder recirculation", <Pill tone="success" key="p4">NOT REQUIRED</Pill>],
